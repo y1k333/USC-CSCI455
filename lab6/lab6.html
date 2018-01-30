@@ -1,0 +1,425 @@
+<html>
+<head>
+<title>
+CSCI 455: Lab 6
+</title
+</head>
+<body bgcolor="#FFFFFF">
+
+<center>
+
+<h2> CS 455 Lab 6: Using a Debugger</h2>
+</center>
+
+<p align=right>
+Fall 2017 [Bono]<BR>
+</p>
+
+<hr>
+<h3> Goals and Background </h3>
+
+This lab introduces you to a symbolic debugger to use with Java
+programs.  The debugger is part of the free Eclipse IDE.  Eclipse is
+not installed on aludra, but is available on the campus lab machines.
+However, you may want to take this opportunity to install Eclipse
+on your own laptop ahead of time and then bring your laptop to lab with you.
+<p>
+
+Even if you figure out some of the errors in this lab without the
+debugger, you should go through the practice of using the debugger
+to get more information about your program; debuggers are useful tools
+for every programmer, this is a good opportunity to acquaint yourself
+with one.  For some reason students aren't motivated to learn a new
+piece of software like this when they have a mysterious bug in a
+program due in 3 hours :-) so we'll give you points for trying it out now!
+<p>
+
+<h3>Reading and reference material</h3> 
+<ul> 
+
+
+
+<li> <a href="http://scf.usc.edu/~csci455/curr/doc/eclipseOverview.html" target="_blank">How to install eclipse
+</a>.  (Also linked on the Documentation page.)
+
+<li> Horstmann, Section 6.10 Using a debugger
+
+<li> <a
+href="http://www.horstmann.com/bigj/help/compiler/tutorial.html" target="_blank">Java
+Compiler Tutorial</a>.  From Cay Horstmann's web pages.  In your
+browser, search for "Eclipse" to get to the section of the document
+about using that tool.  
+
+</ul>
+
+<p>
+
+<H3>Exercise 1 (1 checkoff point)</H3>
+<p>
+<ol>
+
+<LI>
+Copy the following three source files to your laptop using filezilla
+(available free from ITS), or whatever software you normally use to
+transfer files between aludra and your computer.  They are in the
+<kbd>~csci455/labs/lab6</kbd> directory:
+
+<ul>
+<li> <a href="Factors.java"><kbd>Factors.java</kbd></a>
+<li> <a href="NamesTester.java"><kbd>NamesTester.java</kbd></a>
+<li> <a href="Names.java"><kbd>Names.java</kbd></a>
+</ul>
+
+Unless you already have an eclipse workspace where you normally keep
+your code, you can make a local <kbd>lab6</kbd> folder to be the
+workspace, and then two subfolders, <kbd>factors</kbd> and
+<kbd>names</kbd>. Put the source files related to those two
+programs in the appropriate subfoflder.
+<p>
+
+When you open Eclipse you can tell it to use the <kbd>lab6</kbd> folder you just
+created as the workspace.
+
+<p>
+
+<li>
+<KBD>Factors.java</KBD> is a program for calculating all of the
+factors of a number.  
+Make a project for the Factors program in Eclipse (directions follow here for those that haven't done this before):
+<ul>
+<li>Choose the menu option File > New Java Project.
+
+<li> Choose <kbd>factors</kbd> as the name of the project, and it will
+use the <kbd>factors</kbd> folder and the code inside it for the
+project.  
+</ul>
+
+<p>
+<li>
+The program does not quite work as is.  Compile the program; then run
+it, responding to its prompts.
+<p>
+This is probably not the first time you have seen the results of a
+program-crash in Java.  Both when using <kbd>java</kbd> on Unix, or running in
+Eclipse, the output that you get when a program crashes is a
+descriptive exception name, which may clue you in to why the program
+failed.  Below the error message the subsequent lines of output show
+the <em>call stack</em>, that is, a list of the methods that were
+called, but not yet returned from, when the program failed.  If you
+look from the bottom to the top of this list, at the bottom you'll see
+your <kbd>main</kbd> method, then above that the method that was called by main,
+and then the method that was called by that one, etc.
+<p>
+
+The top line of the call stack output shows exactly where the program
+failed: the class, method, the source code file, and line number.
+In Eclipse, if you select that information with your
+mouse, it will highlight that line of code in its editable source
+code display window.  Do that now.
+<p>
+
+Note: if you were using java on aludra instead, and if you were
+editing the source code in emacs you could also easily find the line
+of code where it failed.  At the bottom of the emacs screen it shows
+you the line number your cursor is at, so you can navigate to the line
+number shown in the java error message when your program crashed.
+
+
+<p>
+<LI> Once you are viewing the part of the code where the crash
+happened you may be able to figure out what the problem is.  Even if
+you know what the problem is, let's see how we can view more
+information about the values of variables at the time of the crash:
+<p>
+<hr>
+<strong>How to start the debugger:</strong> You are going to run the
+program again.  Instead of choosing Run on the Run menu (or "Run as"
+from right-clicking the main class in the Package explorer window (left
+side of screen)), choose Debug on the Run menu (or "Debug as" via a
+right-click).  Enter data for the program as before.  Once the
+program crashes it will ask you whether you want to change to the Debug
+perspective.  Answer yes.  This will show a different set of windows,
+although your console window is still at the bottom.
+<p>
+<strong>How to inspect variables in the debug perspective:</strong>
+Once the program is stopped in the debugger you can see the values of
+the variables at the point where it stopped.  All the variables that are
+currently in scope are shown with their current values in a window at
+the upper right of the screen.
+<p>
+<strong>How to look at variables in other methods on the call
+stack:</strong> Sometimes the actual problem is in the method that
+called this method, or some other method lower in the call stack.
+(More about this below.)  Once the program has crashed or stopped at a
+breakpoint, you can look at the values of variables in other methods
+on the call stack as follows: look at the the Debug window at the
+upper left of the screen; select the desired method in the call stack
+list that appears there.
+
+<hr>
+<p>
+<li> Follow the directions in the last paragraph above to look at the
+variables in
+<kbd>main</kbd> too.
+There isn't much of
+interest there, but this is useful for more complicated programs.  If
+you want to go back to the variables in the <kbd>factors</kbd> method,
+just select it on the call stack listing.
+<p>
+<li> Fix the error that's causing the program to crash.  The error can
+be corrected by changing only <EM>one</EM> line.
+</OL>
+<p>
+
+<dl>
+<dd>
+<hr>
+
+<em>More about run-time errors:</em> 
+(Note: you do not need this information to complete the exercise, but it's useful for debugging in general.)
+When you get a runtime error the
+location where it crashed is not necessarily the location of the buggy
+code.
+E.g., if you get a null pointer exception while
+trying to call a method on an object reference, the problem may not be
+the method call, but that you failed to initialize the object
+reference properly, and that code may be in a completely different method than
+where the error occurred.  For example:
+
+<pre>
+   public void foo(MyClass myObj) {
+       myObj.myObjMethod();     // <-- null pointer exception here
+   }
+</pre>
+
+Unless foo is supposed to handle null values, the error is somewhere
+else in the program, likely somewhere in one of the methods that
+directly or indirectly called foo.
+<p>
+The crash may even happen in Java library code; but that doesn't mean
+there's a bug in the Java library code.  For example, if you go off
+the end of an ArrayList, the method shown at the top of the call stack
+is some ArrayList method that's called by <kbd>get</kbd> to do
+range-checking, but the actual error is not in <kbd>get</kbd> but that
+you violated the precondition of <kbd>get</kbd> by passing it an
+out-of-range value.
+<p>
+<hr>
+</dl>
+
+
+<H3>Exercise 2 (1 checkoff point)</H3>
+<p>
+
+Before proceeding, read about a few more commands that will come in
+ handy:
+
+<dl>
+
+<dd>
+<hr>
+<strong>How to get in and out of Debug perspective:</strong> There are
+buttons at the top right of the screen that will switch between Java
+and Debug perspectives.  Alternately, you can use the "Open
+perspective" option on the Window&#x21FE;perspective menu.
+<hr>
+<dd><strong>How to abort a program:</strong> When you are running or
+debugging a program you can stop it by clicking on the solid red
+rectangle icon that's right above the Console window, or by choosing "Terminate" option from the Run menu.
+(You may already know that on Unix you can abort by
+typing <KBD>ctrl-c</KBD>, or if you're running in an emacs shell
+window, <KBD>ctrl-c ctrl-c</KBD>.)
+<hr>
+</dl>
+<p>
+Recompile your new version and run it to see what it does.
+
+<p>
+It would be useful to be able to stop the program to see exactly what is
+going on.  We are going to set a breakpoint in our program, and then
+run it so it stops at that breakpoint.  Choose a likely place that
+would be causing the problem, and set a breakpoint there:
+<p>
+<dl>
+<dd>
+<hr>
+<strong>How to set a breakpoint:</strong> 
+Select the line you want to put the breakpoint on (or remove the breakpoint from),
+and from the Run menu select the "Toggle breakpoint" option.
+It will show a symbol to the left of the statement
+indicating a breakpoint has been set there.  To run to your
+breakpoint, you need to choose Debug (Run will go right past it).  The
+statement where the program stopped (i.e., the one with the
+breakpoint) will be highlighted in green and have an arrow to the left
+of it. <hr> </dl>
+<p>
+Once your program has stopped at the breakpoint, you can see the
+current values of the variables at the upper right like we did before.
+But since our program is still active this time (unlike when it had
+crashed), we can keep running the program and see how the variables
+change.  Read about single stepping before proceeding.
+
+
+<p>
+<dl>
+<dd>
+<hr>
+<strong>How to single step:</strong> Your program needs to be stopped
+at a breakpoint to start single stepping through it.  There is a set
+of icons above the Debug window (upper left) that are debug commands.
+Hover your mouse over them to see the associated command descriptions.
+(These commands are also available on the Run menu.)
+<p>
+There are two kinds of single step commands:
+
+<ul>
+
+<li><strong>Step into</strong> Goes to the next step in the program,
+even if this means entering a method call. (It stops at the first
+line of code in the called method.)
+
+<li><strong>Step over</strong> Runs to the next statement in the
+method you are stopped in, without stopping inside any method calls
+(it will run a method called from here, you will just not have to stop
+at every statement in the method).
+</ul>
+<p>
+When to use which one?  You will step over method calls that you know
+work, e.g., because you already debugged them, don't suspect a problem
+there, or because they are Java library methods.  You will step into
+methods that you are still working on, or where you suspect the bug
+is.  If you step into something with many statements by mistake, use
+<strong>Step return</strong> to get back out of it.  
+<hr>
+</dl>
+<p>
+
+Once your program is stopped because it reached the breakpoint,
+single-step to follow the control flow, looking at the values of
+variables as you go.  Think about what's happening in the program,
+compared to what we want to be happening.  Fix the error.
+
+
+<dl>
+<dd>
+<hr>
+<strong>How to resume running the program:</strong> The green triangle
+above the Debug window resumes program execution.  It will run until
+it reaches the next breakpoint, or until it reaches the end of the
+program.  For example if a breakpoint is in a loop, it would run until
+it hits it again in the next loop iteration (unless the loop exited).  
+<hr>
+</dl>
+
+
+<H3>Exercise 3 (1 checkoff point)</H3>
+<p>
+We're going to work with NamesTester.java and Names.java for the next
+two exercises.  Make a project in eclipse for this program.
+<p>
+Now we're going to focus on displaying more complex data structures in
+the debugger.  The version of this class and tester we're using for
+this lab is a little different than the one used in lecture: this
+version has code to allow the client to insert, remove, and lookup
+names that are internally stored in order in an
+<strong><kbd>ArrayList</kbd></strong>.  This is a different representation than
+we used in our lecture version, but we want to use it here so you can
+see how to display the internals of a Java object.
+<p>
+
+Like the version we did in class, here we have a test driver
+<kbd>NamesTester.java</kbd> that tests all of the methods on several
+test cases each.  (Note: The NamesTester.java version is also a little
+different than the one we used in lecture.)  In addition to the
+methods we did in class (lookup, remove), <kbd>Names</kbd> has an
+insert function which inserts names in sorted (i.e., alphabetical)
+order.  You may want to examine NamesTester.java to see how the insert
+method gets tested.
+<p>
+The Names insert method does not quite work correctly; run NamesTester
+see how it behaves.
+<p>
+Now, run this program again in the debugger to try to figure out
+what's wrong with it.  Set breakpoints to stop execution at useful
+locations.  Hint: so you don't spend a lot of time single-stepping
+through test cases that might not give us much information, stop the
+program at the first call to <kbd>doInsert</kbd> that gets incorrect
+results; then you can step into the call to <kbd>insert</kbd> that has
+the incorrect behavior.
+<p>
+Once you have a breakpoint set, you can view variables as we did
+before, but this time some of the the variables are object references and
+arrays.  For these more complicated objects, you can view the subparts
+by clicking on the + next to the variable name.  You may have to do
+this for a few levels to see everything you want to see (e.g., this
+--> namesArr --> namesArr elements).
+<p>
+Once your program is stopped in the insert method, make sure you
+can see the following key data for this method: namesArr
+individual elements, namesArr size, newName (the one we are trying to
+insert), and targetLoc.  You can make the Variables window larger to
+see them all at the same time.
+<p>
+Once you get the display set up, you can single-step to see how the
+values change as you do each step in the program.  You may want to
+examine additional variables as you go as well.
+<p>
+You get this lab point by (1) showing the TA the contents of
+<kbd>namesArr</kbd> (including the strings inside it) being displayed
+in eclipse while your program is stopped at a breakpoint, and (2)
+based on what you see, telling the TA what the current capacity of the
+ArrayList is.
+
+<p>
+<H3>Exercise 4 (1 checkoff point)</H3> 
+
+Single-step with the debugger, seeing how the values change to help
+you diagnose the problem.  Fix the bug.  (Note: fix the code by making
+minimal changes -- ArrayList has methods that would allow us to
+eliminate one or more of the loops, but we'll take this as an
+opportunity to practice with array manipulation code: do not
+eliminate any loops in your fix.)
+<p>
+
+As you can see from this problem, the debugger is just a tool to help
+us see exactly what our buggy program is doing.  It doesn't actually
+diagnose or fix bugs.  For a non-trivial bug like this one, you may
+need to give it some thought, including doing some pencil and paper
+work, before figuring out how to correct the problem.  As with all
+programs, you definitely do not want to just start adding random
+statements until it seems to work.
+
+<H3>Checkoff Summary</H3>
+
+Show the TA your correctly working <kbd>Factors</kbd> program and
+<kbd>NamesTester</kbd> program.  For Exercise 3, see directions in the last
+paragraph of that section.
+<p>
+
+
+<hr>
+
+<H3>Checkoff for DEN students</H3>
+<p>
+To submit, use the following command 
+<pre>
+submit -user csci455 -tag lab6 Factors.java Names.java
+</pre>
+
+(NamesTester.java should not have changed)
+Make sure you put your name and loginid in all
+the files you submit.  Since you can't show the TA the results for
+Ex. 3 very easily, you will get 2 points for Ex. 4.  It's in your
+interest to actually use the debugger to complete this lab, since the
+main point of it is to familiarize yourself with the debugger.
+<p>
+
+<hr>
+<EM>This lab is adapted from one written by Mike Clancy.</EM>
+
+
+</html>
+
+
+
+

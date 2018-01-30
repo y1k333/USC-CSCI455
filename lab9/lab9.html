@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>
+Lab 9   CS 455
+</title
+</head>
+<body bgcolor="#FFFFFF">
+
+
+<center>
+
+<h2> CS 455 Lab 9: Enhance <kbd>DataAnalyzer</kbd> program</h2>
+</center>
+
+<p align=right>
+Fall 2017 [Bono]<BR>
+</p>
+
+<hr>
+<h3> Goals and Background </h3>
+
+<p>
+This lab involves enhancements to the <kbd>DataAnalyzer</kbd>
+example from Ch. 11 of the textbook and discussed in lecture.
+<p>
+For credit on these exercises, they must be written in the style the
+original program is written; for example, it uses exception handling,
+and the error-reporting and recovery happens in <kbd>main</kbd>.
+<p>
+
+<h3>Reading and reference material</h3> 
+
+
+<ul>
+<li> Ch. 11 of Horstmann text
+<li> Section 11.5 of the text presents this example
+<li> Exceptions and this example discussed in 10/17 lecture
+
+
+</ul>
+
+
+<p>
+
+<H3>Part 1 (1 checkoff pt)</H3>
+
+Copy the java files and data files from <kbd>~csci455/labs/lab9</kbd> to a directory on your own account.  These are:
+
+<ul> 
+<li> <kbd><a href="DataAnalyzer.java">DataAnalyzer.java</kbd>
+</a>
+<li> <kbd><a href="DataSetReader.java">DataSetReader.java</kbd>
+</a>
+<li> <kbd><a href="BadDataException.java">BadDataException.java</kbd>
+</a>
+<li> <kbd><a href="in.valid">in.valid</a></kbd>, 
+<kbd><a href="in.empty">in.empty</a></kbd>, 
+<kbd><a href="in.badFloat">in.badFloat</a></kbd>, 
+<kbd><a href="in.runsOut">in.runsOut</a></kbd>, 
+<kbd><a href="in.tooMany">in.tooMany</a></kbd>,
+<kbd><a href="in.zero">in.zero</a></kbd>
+</ul>
+
+<p>
+This is code for the DataAnalyzer example from the Exceptions chapter of the
+textbook, and some
+sample input files with and without errors.
+<p>
+Compile and run the program with the sample data files to see how it
+currently behaves.
+<p>
+
+Change the program so it still prompts for a new file name if the file
+is not found (i.e., it does <em>not</em> exit on file not found), <em>but now it
+will exit the program if it found any problems with the file format.</em>
+(The original version prompts for a new file name in those cases.)  It
+would, of course, report the error to the user before exiting, as it
+did before.
+
+<H3>Part 2 (4 checkoff points total)</H3>
+
+Change the program so it gives more descriptive error messages, and
+distinguishes between more errors.  Details given in the following paragraphs.
+<p>
+  First one that doesn't change: The
+following message will be the same as before, and happen in the same
+circumstances (except for how Part 1, above, affects the recovery):
+<p>
+<kbd>Length expected</kbd>
+<p>
+Instead of the other error messages the current program produces, the
+following messages will now be produced when these errors occur
+
+<br>
+<em>Note: each one will be worth one point.</em>
+
+<dl>
+<dt> <kbd>Bad data: Too many data values given</kbd>
+<p>
+<dt> <kbd>Bad data: Too few data values given</kbd>
+<p>
+<dt> <kbd>Bad data: Non-floating point value given: 0-05</kbd>
+<dd>Shows an example of the output when the file contained <kbd>0-05</kbd> somewhere instead of a valid floating point number -- i.e., your message should include the invalid input detected.
+<p>
+<dt> <kbd>File not found: foo</kbd>
+<dd>Shows an example of the output when the file name entered was <kbd>foo</kbd>, but that file does not exist -- i.e., your message should include the file name given by the the user.
+
+</dl>
+
+
+<H3>Checkoff for DEN students</H3>
+<p>
+No README required for this lab.
+<p>
+The following command submits the necessary files:
+
+<pre>
+submit -user csci455 -tag lab9 DataAnalyzer.java DataSetReader.java
+</pre>
+
+
+
+<hr>
+</html>
